@@ -1,0 +1,49 @@
+<?php
+session_start();
+$scans = array_reverse($_SESSION['scans'] ?? []);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>FaceScan — Gallery</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#03050a; --panel:#0b1220; --cyan:#00e5ff; --green:#00ff88; --amber:#ffaa00; --text:#c8dff5; --dim:#4a6080; --border:rgba(0,229,255,0.18); }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Exo 2',sans-serif; min-height:100vh; padding:30px; }
+  h1 { font-family:'Share Tech Mono',monospace; color:var(--cyan); letter-spacing:4px; margin-bottom:24px; font-size:1.1rem; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:16px; }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:10px; overflow:hidden; }
+  .card img { width:100%; aspect-ratio:1; object-fit:cover; display:block; }
+  .card-info { padding:10px 12px; font-size:0.75rem; }
+  .card-time { font-family:'Share Tech Mono',monospace; color:var(--cyan); font-size:0.7rem; }
+  .card-detail { color:var(--dim); margin-top:4px; line-height:1.5; }
+  .back { display:inline-block; margin-bottom:20px; color:var(--cyan); text-decoration:none; font-family:'Share Tech Mono',monospace; font-size:0.8rem; letter-spacing:2px; }
+  .empty { color:var(--dim); font-family:'Share Tech Mono',monospace; letter-spacing:2px; }
+</style>
+</head>
+<body>
+<a class="back" href="index.php">← BACK TO SCANNER</a>
+<h1>◈ CAPTURE GALLERY — <?= count($scans) ?> RECORDS</h1>
+<?php if(empty($scans)): ?>
+  <div class="empty">NO CAPTURES YET</div>
+<?php else: ?>
+<div class="grid">
+  <?php foreach($scans as $s): ?>
+  <div class="card">
+    <img src="<?= htmlspecialchars($s['filename'] ? 'uploads/'.$s['filename'] : '') ?>" alt="Capture">
+    <div class="card-info">
+      <div class="card-time"><?= htmlspecialchars($s['time']) ?></div>
+      <div class="card-detail">
+        Age ~<?= $s['age'] ?><br>
+        <?= htmlspecialchars($s['gender']) ?><br>
+        <?= htmlspecialchars($s['expr']) ?>
+      </div>
+    </div>
+  </div>
+  <?php endforeach; ?>
+</div>
+<?php endif; ?>
+</body>
+</html>
