@@ -1,0 +1,6 @@
+uploads/*
+!uploads/.gitkeep
+logs/*
+!logs/.gitkeep
+.DS_Store
+node_modules/

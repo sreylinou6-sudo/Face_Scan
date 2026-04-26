@@ -37,3 +37,13 @@ Drop the folder in your web root and configure the vhost normally.
 - PHP session-based capture log
 - Image saved to server with PHP
 - Scan log written to `logs/scans.log`
+
+## Run Using IP Address
+```bash
+http://[IP_ADDRESS]/ProjectSunday/Face-Feeling/
+```
+
+## Run Using Localhost
+```bash
+http://localhost/ProjectSunday/Face-Feeling/
+```
